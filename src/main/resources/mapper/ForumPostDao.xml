@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.ufun.forum.mapper.ForumPostMapper">
+
+    <resultMap type="tech.ufun.forum.domain.ForumPost" id="ForumPostMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="postId" column="post_id" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="authorId" column="author_id" jdbcType="VARCHAR"/>
+        <result property="subject" column="subject" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="isTop" column="is_top" jdbcType="INTEGER"/>
+        <result property="viewCount" column="view_count" jdbcType="INTEGER"/>
+        <result property="replayCount" column="replay_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="findById" resultMap="ForumPostMap">
+        select
+          id, post_id, author, author_id, subject, content, create_time, is_top, view_count, replay_count
+        from forum_post
+        where post_id = #{id}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findAll" resultMap="ForumPostMap">
+        select
+          id, post_id, author, author_id, subject, content, create_time, is_top, view_count, replay_count
+        from forum_post
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="postId != null and postId != ''">
+                and post_id = #{postId}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="authorId != null and authorId != ''">
+                and author_id = #{authorId}
+            </if>
+            <if test="subject != null and subject != ''">
+                and subject = #{subject}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="isTop != null">
+                and is_top = #{isTop}
+            </if>
+            <if test="viewCount != null">
+                and view_count = #{viewCount}
+            </if>
+            <if test="replayCount != null">
+                and replay_count = #{replayCount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert">
+        insert into ufun_forum.forum_post(post_id, author, author_id, subject, content, create_time, is_top, view_count, replay_count)
+        values (#{postId}, #{author}, #{authorId}, #{subject}, #{content}, #{createTime}, #{isTop}, #{viewCount}, #{replayCount})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update forum_post
+        <set>
+            <if test="author != null and author != ''">
+                author = #{author},
+            </if>
+            <if test="authorId != null and authorId != ''">
+                author_id = #{authorId},
+            </if>
+            <if test="subject != null and subject != ''">
+                subject = #{subject},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop},
+            </if>
+            <if test="viewCount != null">
+                view_count = #{viewCount},
+            </if>
+            <if test="replayCount != null">
+                replay_count = #{replayCount},
+            </if>
+        </set>
+        where post_id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from forum_post where post_id = #{id}
+    </delete>
+
+</mapper>
