@@ -17,7 +17,7 @@
         select
           id, reply_id, post_id, author, author_id, reply_content, reply_time
         from forum_reply
-        where reply_id = #{id}
+        where reply_id = #{replyId}
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -60,9 +60,6 @@
     <update id="update">
         update forum_reply
         <set>
-            <if test="replyId != null and replyId != ''">
-                reply_id = #{replyId},
-            </if>
             <if test="postId != null and postId != ''">
                 post_id = #{postId},
             </if>
@@ -79,12 +76,12 @@
                 reply_time = #{replyTime},
             </if>
         </set>
-        where reply_id = #{id}
+        where reply_id = #{replyId}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from forum_reply where reply_id = #{id}
+        delete from forum_reply where reply_id = #{replyId}
     </delete>
 
 </mapper>

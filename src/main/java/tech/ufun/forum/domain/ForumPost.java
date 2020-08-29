@@ -8,7 +8,7 @@ import java.util.Date;
  * 主题(ForumPost)实体类
  *
  * @author 张雷
- * @since 2020-08-26 16:11:42
+ * @since 2020-08-29 10:41:51
  */
 @Data
 public class ForumPost {
@@ -16,8 +16,14 @@ public class ForumPost {
     private Long id;
     /** 主题id */
     private String postId;
+    /** 话题id */
+    private String topicId;
+    /** 话题 */
+    private String topic;
     /** 作者 */
     private String author;
+    /** 作者头像 */
+    private String authorAvatar;
     /** 作者id */
     private String authorId;
     /** 标题 */

@@ -10,7 +10,7 @@ import tech.ufun.framework.core.domain.AjaxResult;
  * 主题(ForumPost)表控制层
  *
  * @author 张雷
- * @since 2020-08-26 16:11:47
+ * @since 2020-08-29 10:41:51
  */
 @RestController
 @RequestMapping("forumPost")

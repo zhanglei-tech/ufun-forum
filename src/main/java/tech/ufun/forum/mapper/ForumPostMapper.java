@@ -9,7 +9,7 @@ import java.util.List;
  * 主题(ForumPost)表数据库访问层
  *
  * @author 张雷
- * @since 2020-08-26 16:11:44
+ * @since 2020-08-29 10:41:51
  */
 @Mapper
 public interface ForumPostMapper {
@@ -17,15 +17,15 @@ public interface ForumPostMapper {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param postId 主键
      * @return 实例对象
      */
-    ForumPost findById(String id);
+    ForumPost findById(String postId);
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param forumPost 实例对象
+     * @param forumPost 查询条件
      * @return 对象列表
      */
     List<ForumPost> findAll(ForumPost forumPost);
@@ -49,9 +49,9 @@ public interface ForumPostMapper {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param postId 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteById(String postId);
 
 }

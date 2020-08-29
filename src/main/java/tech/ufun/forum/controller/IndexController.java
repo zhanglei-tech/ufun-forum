@@ -1,18 +1,21 @@
 package tech.ufun.forum.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 首页控制器
+ *
  * @author zhanglei
- * @date 2020-08-26 10:18
+ * @date 2020-08-28 08:40
  */
 @Controller
 @RequestMapping("/")
-public class TestController {
+public class IndexController {
 
-    @RequestMapping("/")
-    public String test() {
-        return "test";
+    @GetMapping("/")
+    public String index() {
+        return "index";
     }
 }

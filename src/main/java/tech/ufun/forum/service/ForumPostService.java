@@ -8,7 +8,7 @@ import java.util.List;
  * 主题(ForumPost)表服务接口
  *
  * @author 张雷
- * @since 2020-08-26 16:11:46
+ * @since 2020-08-29 10:41:51
  */
 public interface ForumPostService {
 
@@ -32,7 +32,7 @@ public interface ForumPostService {
      * 新增数据
      *
      * @param forumPost 实例对象
-     * @return 主键ID
+     * @return 影响行数
      */
     int insert(ForumPost forumPost);
 
@@ -40,7 +40,7 @@ public interface ForumPostService {
      * 修改数据
      *
      * @param forumPost 实例对象
-     * @return 主键ID
+     * @return 影响行数
      */
     int update(ForumPost forumPost);
 
