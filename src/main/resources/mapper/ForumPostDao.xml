@@ -15,13 +15,13 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isTop" column="is_top" jdbcType="INTEGER"/>
         <result property="viewCount" column="view_count" jdbcType="INTEGER"/>
-        <result property="replayCount" column="replay_count" jdbcType="INTEGER"/>
+        <result property="replyCount" column="reply_count" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="findById" resultMap="ForumPostMap">
         select
-          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, replay_count
+          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, reply_count
         from forum_post
         where post_id = #{postId}
     </select>
@@ -29,7 +29,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="findAll" resultMap="ForumPostMap">
         select
-          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, replay_count
+          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, create_time, is_top, view_count, reply_count
         from forum_post
         <where>
             <if test="id != null">
@@ -56,9 +56,6 @@
             <if test="subject != null and subject != ''">
                 and subject = #{subject}
             </if>
-            <if test="content != null and content != ''">
-                and content = #{content}
-            </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
@@ -68,16 +65,25 @@
             <if test="viewCount != null">
                 and view_count = #{viewCount}
             </if>
-            <if test="replayCount != null">
-                and replay_count = #{replayCount}
+            <if test="replyCount != null">
+                and reply_count = #{replyCount}
             </if>
         </where>
     </select>
 
+    <!--通过实体作为筛选条件查询-->
+    <select id="findAllTop" resultMap="ForumPostMap">
+        select
+          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, create_time, view_count, reply_count
+        from forum_post
+        where is_top = 1
+        order by create_time desc
+    </select>
+
     <!--新增所有列-->
     <insert id="insert">
-        insert into forum_post(post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, replay_count)
-        values (#{postId}, #{topicId}, #{topic}, #{author}, #{authorAvatar}, #{authorId}, #{subject}, #{content}, #{createTime}, #{isTop}, #{viewCount}, #{replayCount})
+        insert into forum_post(post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, reply_count)
+        values (#{postId}, #{topicId}, #{topic}, #{author}, #{authorAvatar}, #{authorId}, #{subject}, #{content}, #{createTime}, #{isTop}, #{viewCount}, #{replyCount})
     </insert>
 
     <!--通过主键修改数据-->
@@ -114,8 +120,8 @@
             <if test="viewCount != null">
                 view_count = #{viewCount},
             </if>
-            <if test="replayCount != null">
-                replay_count = #{replayCount},
+            <if test="replyCount != null">
+                reply_count = #{replyCount},
             </if>
         </set>
         where post_id = #{postId}

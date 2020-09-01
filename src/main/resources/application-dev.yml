@@ -18,6 +18,9 @@ spring:
     encoding: utf-8
     # 禁用缓存
     cache: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   # 服务模块
   devtools:
     restart:

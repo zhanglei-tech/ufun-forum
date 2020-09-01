@@ -9,7 +9,7 @@ import java.util.List;
  * 话题(ForumTopic)表数据库访问层
  *
  * @author 张雷
- * @since 2020-08-28 15:13:31
+ * @since 2020-08-29 17:38:16
  */
 @Mapper
 public interface ForumTopicMapper {
@@ -20,15 +20,14 @@ public interface ForumTopicMapper {
      * @param id 主键
      * @return 实例对象
      */
-    ForumTopic findById(String id);
+    ForumTopic findById(Long id);
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param forumTopic 实例对象
      * @return 对象列表
      */
-    List<ForumTopic> findAll(ForumTopic forumTopic);
+    List<ForumTopic> findAll();
 
     /**
      * 新增数据
@@ -52,6 +51,6 @@ public interface ForumTopicMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteById(Long id);
 
 }

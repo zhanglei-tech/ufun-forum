@@ -12,9 +12,9 @@ import java.util.List;
  * 话题(ForumTopic)表服务实现类
  *
  * @author 张雷
- * @since 2020-08-28 15:13:32
+ * @since 2020-08-29 17:38:16
  */
-@Service("forumTopicService")
+@Service
 public class ForumTopicServiceImpl implements ForumTopicService {
 
     @Autowired
@@ -27,7 +27,7 @@ public class ForumTopicServiceImpl implements ForumTopicService {
      * @return 实例对象
      */
     @Override
-    public ForumTopic findById(String id) {
+    public ForumTopic findById(Long id) {
         return this.forumTopicMapper.findById(id);
     }
 
@@ -37,8 +37,8 @@ public class ForumTopicServiceImpl implements ForumTopicService {
      * @return 对象列表
      */
     @Override
-    public List<ForumTopic> findAll(ForumTopic forumTopic) {
-        return this.forumTopicMapper.findAll(forumTopic);
+    public List<ForumTopic> findAll() {
+        return this.forumTopicMapper.findAll();
     }
 
     /**
@@ -70,7 +70,7 @@ public class ForumTopicServiceImpl implements ForumTopicService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(Long id) {
         return this.forumTopicMapper.deleteById(id) > 0;
     }
 }

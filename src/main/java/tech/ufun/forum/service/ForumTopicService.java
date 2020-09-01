@@ -8,7 +8,7 @@ import java.util.List;
  * 话题(ForumTopic)表服务接口
  *
  * @author 张雷
- * @since 2020-08-28 15:13:32
+ * @since 2020-08-29 17:38:16
  */
 public interface ForumTopicService {
 
@@ -18,20 +18,20 @@ public interface ForumTopicService {
      * @param id 主键
      * @return 实例对象
      */
-    ForumTopic findById(String id);
+    ForumTopic findById(Long id);
 
     /**
      * 查询多条数据
      *
      * @return 对象列表
      */
-    List<ForumTopic> findAll(ForumTopic forumTopic);
+    List<ForumTopic> findAll();
 
     /**
      * 新增数据
      *
      * @param forumTopic 实例对象
-     * @return 主键ID
+     * @return 影响行数
      */
     int insert(ForumTopic forumTopic);
 
@@ -39,7 +39,7 @@ public interface ForumTopicService {
      * 修改数据
      *
      * @param forumTopic 实例对象
-     * @return 主键ID
+     * @return 影响行数
      */
     int update(ForumTopic forumTopic);
 
@@ -49,6 +49,6 @@ public interface ForumTopicService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String id);
+    boolean deleteById(Long id);
 
 }

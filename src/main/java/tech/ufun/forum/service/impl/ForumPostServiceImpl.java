@@ -43,6 +43,16 @@ public class ForumPostServiceImpl implements ForumPostService {
     }
 
     /**
+     * 查询置顶帖子
+     *
+     * @return 对象列表
+     */
+    @Override
+    public List<ForumPost> findAllTop() {
+        return this.forumPostMapper.findAllTop();
+    }
+
+    /**
      * 新增数据
      *
      * @param forumPost 实例对象

@@ -6,7 +6,7 @@ import lombok.Data;
  * 话题(ForumTopic)实体类
  *
  * @author 张雷
- * @since 2020-08-28 15:13:30
+ * @since 2020-08-29 17:38:16
  */
 @Data
 public class ForumTopic {
@@ -16,6 +16,8 @@ public class ForumTopic {
     private String topicId;
     /** 话题 */
     private String topic;
+    /** 话题key */
+    private String topicKey;
     /** 顺序 */
     private Integer listOrder;
     /** 状态 */

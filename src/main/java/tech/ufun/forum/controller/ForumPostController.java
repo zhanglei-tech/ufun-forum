@@ -13,7 +13,7 @@ import tech.ufun.framework.core.domain.AjaxResult;
  * @since 2020-08-29 10:41:51
  */
 @RestController
-@RequestMapping("forumPost")
+@RequestMapping("post")
 public class ForumPostController {
 
     /** 服务对象 */

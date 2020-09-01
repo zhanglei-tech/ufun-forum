@@ -29,6 +29,13 @@ public interface ForumPostService {
     List<ForumPost> findAll(ForumPost forumPost);
 
     /**
+     * 查询置顶帖子
+     *
+     * @return 对象列表
+     */
+    List<ForumPost> findAllTop();
+
+    /**
      * 新增数据
      *
      * @param forumPost 实例对象
