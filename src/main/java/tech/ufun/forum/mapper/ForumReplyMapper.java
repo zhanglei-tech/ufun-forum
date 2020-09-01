@@ -1,6 +1,6 @@
 package tech.ufun.forum.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import tech.ufun.forum.domain.ForumReply;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author 张雷
  * @since 2020-08-26 16:11:51
  */
-@Mapper
+@Repository
 public interface ForumReplyMapper {
 
     /**
