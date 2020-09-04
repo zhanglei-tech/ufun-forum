@@ -7,6 +7,7 @@
         <result property="postId" column="post_id" jdbcType="VARCHAR"/>
         <result property="topicId" column="topic_id" jdbcType="VARCHAR"/>
         <result property="topic" column="topic" jdbcType="VARCHAR"/>
+        <result property="topicKey" column="topic_key" jdbcType="VARCHAR"/>
         <result property="author" column="author" jdbcType="VARCHAR"/>
         <result property="authorAvatar" column="author_avatar" jdbcType="VARCHAR"/>
         <result property="authorId" column="author_id" jdbcType="VARCHAR"/>
@@ -14,6 +15,7 @@
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isTop" column="is_top" jdbcType="INTEGER"/>
+        <result property="isEssence" column="is_essence" jdbcType="INTEGER"/>
         <result property="viewCount" column="view_count" jdbcType="INTEGER"/>
         <result property="replyCount" column="reply_count" jdbcType="INTEGER"/>
     </resultMap>
@@ -21,7 +23,7 @@
     <!--查询单个-->
     <select id="findById" resultMap="ForumPostMap">
         select
-          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, reply_count
+          id, post_id, topic_id, topic, topic_key, author, author_avatar, author_id, subject, content, create_time, is_top, is_essence, view_count, reply_count
         from forum_post
         where post_id = #{postId}
     </select>
@@ -29,61 +31,40 @@
     <!--通过实体作为筛选条件查询-->
     <select id="findAll" resultMap="ForumPostMap">
         select
-          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, create_time, is_top, view_count, reply_count
+          id, post_id, topic_id, topic, topic_key, author, author_avatar, author_id, subject, create_time, is_top, is_essence, view_count, reply_count
         from forum_post
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="postId != null and postId != ''">
-                and post_id = #{postId}
-            </if>
             <if test="topicId != null and topicId != ''">
                 and topic_id = #{topicId}
             </if>
             <if test="topic != null and topic != ''">
-                and topic = #{topic}
+                and topic like '%#{topic}%'
+            </if>
+            <if test="topicKey != null and topicKey != ''">
+                and topic_key = #{topicKey}
             </if>
             <if test="author != null and author != ''">
-                and author = #{author}
-            </if>
-            <if test="authorAvatar != null and authorAvatar != ''">
-                and author_avatar = #{authorAvatar}
+                and author like '%#{author}%'
             </if>
             <if test="authorId != null and authorId != ''">
                 and author_id = #{authorId}
             </if>
             <if test="subject != null and subject != ''">
-                and subject = #{subject}
+                and subject like '%#{subject}%'
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="isTop != null">
+            <if test="isTop != null and isTop != -1">
                 and is_top = #{isTop}
             </if>
-            <if test="viewCount != null">
-                and view_count = #{viewCount}
-            </if>
-            <if test="replyCount != null">
-                and reply_count = #{replyCount}
+            <if test="isEssence != null and isEssence != -1">
+                and is_essence = #{isEssence}
             </if>
         </where>
     </select>
 
-    <!--通过实体作为筛选条件查询-->
-    <select id="findAllTop" resultMap="ForumPostMap">
-        select
-          id, post_id, topic_id, topic, author, author_avatar, author_id, subject, create_time, view_count, reply_count
-        from forum_post
-        where is_top = 1
-        order by create_time desc
-    </select>
-
     <!--新增所有列-->
     <insert id="insert">
-        insert into forum_post(post_id, topic_id, topic, author, author_avatar, author_id, subject, content, create_time, is_top, view_count, reply_count)
-        values (#{postId}, #{topicId}, #{topic}, #{author}, #{authorAvatar}, #{authorId}, #{subject}, #{content}, #{createTime}, #{isTop}, #{viewCount}, #{replyCount})
+        insert into forum_post(post_id, topic_id, topic, topic_key, author, author_avatar, author_id, subject, content, create_time, is_top, is_essence, view_count, reply_count)
+        values (#{postId}, #{topicId}, #{topic}, #{topicKey}, #{author}, #{authorAvatar}, #{authorId}, #{subject}, #{content}, #{createTime}, #{isTop}, #{isEssence}, #{viewCount}, #{replyCount})
     </insert>
 
     <!--通过主键修改数据-->
@@ -95,6 +76,9 @@
             </if>
             <if test="topic != null and topic != ''">
                 topic = #{topic},
+            </if>
+            <if test="topicKey != null and topicKey != ''">
+                topic_key = #{topicKey},
             </if>
             <if test="author != null and author != ''">
                 author = #{author},
@@ -116,6 +100,9 @@
             </if>
             <if test="isTop != null">
                 is_top = #{isTop},
+            </if>
+            <if test="isEssence != null">
+                is_essence = #{isEssence},
             </if>
             <if test="viewCount != null">
                 view_count = #{viewCount},

@@ -1,6 +1,7 @@
 package tech.ufun.forum.service;
 
 import tech.ufun.forum.domain.ForumPost;
+import tech.ufun.framework.core.page.PageData;
 
 import java.util.List;
 
@@ -26,14 +27,7 @@ public interface ForumPostService {
      * @param forumPost 查询条件
      * @return 对象列表
      */
-    List<ForumPost> findAll(ForumPost forumPost);
-
-    /**
-     * 查询置顶帖子
-     *
-     * @return 对象列表
-     */
-    List<ForumPost> findAllTop();
+    PageData findAll(ForumPost forumPost);
 
     /**
      * 新增数据

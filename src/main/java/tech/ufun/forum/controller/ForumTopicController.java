@@ -48,13 +48,13 @@ public class ForumTopicController {
 
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult add(@RequestBody ForumTopic forumTopic) {
+    public AjaxResult add( ForumTopic forumTopic) {
         return AjaxResult.success(forumTopicService.insert(forumTopic));
     }
 
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult edit(@RequestBody ForumTopic forumTopic) {
+    public AjaxResult edit( ForumTopic forumTopic) {
         return AjaxResult.success(forumTopicService.update(forumTopic));
     }
 

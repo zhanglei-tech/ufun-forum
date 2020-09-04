@@ -21,6 +21,8 @@ public class ForumPost {
     private String topicId;
     /** 话题 */
     private String topic;
+    /** 话题key */
+    private String topicKey;
     /** 作者 */
     private String author;
     /** 作者头像 */
@@ -36,6 +38,8 @@ public class ForumPost {
     private Date createTime;
     /** 是否置顶 */
     private Integer isTop;
+    /** 是否精华 */
+    private Integer isEssence;
     /** 浏览数 */
     private Integer viewCount;
     /** 回复数 */

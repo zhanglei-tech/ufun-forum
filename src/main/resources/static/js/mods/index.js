@@ -307,6 +307,96 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function 
             return arguments.callee;
         }
 
+        //主题列表
+        , topic: function (cur) {
+            //话题列表
+            var elemTopic = $('#LAY_topicList');
+            var topicIndex = '';
+            if (cur === 'index') {
+                topicIndex = '<li class="layui-hide-xs layui-this"><a href="/">首页</a></li>'
+            } else {
+                topicIndex = '<li class="layui-hide-xs"><a href="/">首页</a></li>'
+            }
+            var topicItem = '<li {class}><a href="/topic/{key}">{topic}</a></li>';
+            var topicSeparator = '<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>';
+
+            var topic = topicIndex;
+
+            fly.json('/topic/findAll', {}, function (res) {
+                res.data.forEach((item, index, array) => {
+                    if (cur === item.topicKey) {
+                        topic += topicItem.replace('{class}', 'class="layui-this"').replace('{key}', item.topicKey).replace('{topic}', item.topic);
+                    } else {
+                        topic += topicItem.replace('{class}', '').replace('{key}', item.topicKey).replace('{topic}', item.topic);
+                    }
+                })
+                topic += topicSeparator;
+                elemTopic.html(topic);
+            })
+        }
+        
+        //帖子列表
+        , posts: function (ctx, element, topic, isTop, isEssence, order) {
+            var postElem = [
+                '<li>'
+                , '<a href="{userUrl}" class="fly-avatar">'
+                , '<img src="{avatarUrl}" alt="{author}">'
+                , '</a>'
+                , '<h2>'
+                , '<a class="layui-badge">{topic}</a>'
+                , '<a href="{postUrl}">{subject}</a>'
+                , '</h2>'
+                , '<div class="fly-list-info">'
+                , '<a href="{userUrl}" link>'
+                , '<cite>{author}</cite>'
+                , '</a>'
+                , '<span>{createTime}</span>'
+                , '<span class="fly-list-read" title="浏览">'
+                , '<i class="layui-icon layui-icon-read"></i>'
+                , '<i>{viewCount}</i>'
+                , '</span>'
+                , '<span class="fly-list-nums">'
+                , '<i class="iconfont icon-pinglun1" title="回复"></i>'
+                , '<i>{replyCount}</i>'
+                , '</span>'
+                , '</div>'
+                , '{essence}'
+                , '</li>'
+            ].join('');
+            var essenceElem = [
+                '<div class="fly-list-badge">'
+                , '<span class="layui-badge layui-bg-red">精华</span>'
+                , '</div>'
+            ].join('');
+            var topPosts = '';
+            fly.json('/post/findAll', {'topicKey':topic, 'isTop':isTop, 'isEssence':isEssence, 'orderByColumn':order}, function (res) {
+                if (res.code === 0) {
+                    res.rows.forEach((item, index, array) => {
+                        var curPostElem = postElem
+                            .replaceAll('{avatarUrl}', ctx + item.authorAvatar)
+                            .replaceAll('{author}', item.author)
+                            .replaceAll('{topic}', item.topic)
+                            .replaceAll('{postUrl}', ctx + 'post/detail/' + item.postId)
+                            .replaceAll('{subject}', item.subject)
+                            .replaceAll('{createTime}', item.createTime)
+                            .replaceAll('{viewCount}', item.viewCount)
+                            .replaceAll('{replyCount}', item.replyCount);
+                        if (item.authorId !== null) {
+                            curPostElem = curPostElem.replaceAll('{userUrl}', ctx + 'user/' + item.authorId);
+                        } else {
+                            curPostElem = curPostElem.replaceAll('userUrl', '#');
+                        }
+                        if (item.isEssence === 1) {
+                            curPostElem = curPostElem.replaceAll('{essence}', essenceElem);
+                        } else {
+                            curPostElem = curPostElem.replaceAll('{essence}', '');
+                        }
+                        topPosts += curPostElem;
+                    })
+                    element.html(topPosts);
+                }
+            })
+        }
     };
 
     //签到
@@ -617,22 +707,6 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function 
             }
         }
     });
-
-    //话题列表
-    // var elemTopic = $('#LAY_topicList');
-    // var topicIndex = '<li class="layui-hide-xs layui-this"><a href="/">首页</a></li>'
-    // var topicItem = '<li><a href="/topic/{key}">{topic}</a></li>';
-    // var topicSeparator = '<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>';
-    //
-    // var topic = topicIndex;
-    //
-    // fly.json('/topic/findAll', {}, function (res) {
-    //     res.data.forEach((item, index, array) => {
-    //         topic += topicItem.replace('{key}', item.topicKey).replace('{topic}', item.topic);
-    //     })
-    //     topic += topicSeparator;
-    //     elemTopic.html(topic);
-    // })
 
     exports('fly', fly);
 })

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import tech.ufun.forum.domain.ForumPost;
 import tech.ufun.forum.mapper.ForumPostMapper;
 import tech.ufun.forum.service.ForumPostService;
+import tech.ufun.framework.core.page.PageData;
+import tech.ufun.framework.core.page.PageSupport;
 
 import java.util.List;
 
@@ -38,18 +40,10 @@ public class ForumPostServiceImpl implements ForumPostService {
      * @return 对象列表
      */
     @Override
-    public List<ForumPost> findAll(ForumPost forumPost) {
-        return this.forumPostMapper.findAll(forumPost);
-    }
-
-    /**
-     * 查询置顶帖子
-     *
-     * @return 对象列表
-     */
-    @Override
-    public List<ForumPost> findAllTop() {
-        return this.forumPostMapper.findAllTop();
+    public PageData findAll(ForumPost forumPost) {
+        PageSupport.startPage();
+        List<ForumPost> list = this.forumPostMapper.findAll(forumPost);
+        return PageSupport.getPageData(list);
     }
 
     /**

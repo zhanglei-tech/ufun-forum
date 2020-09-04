@@ -22,7 +22,7 @@ public class ForumReplyController {
 
     @PostMapping("/findAll")
     @ResponseBody
-    public AjaxResult findAll(@RequestBody ForumReply forumReply) {
+    public AjaxResult findAll( ForumReply forumReply) {
         return AjaxResult.success(forumReplyService.findAll(forumReply));
     }
 
@@ -34,13 +34,13 @@ public class ForumReplyController {
 
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult add(@RequestBody ForumReply forumReply) {
+    public AjaxResult add( ForumReply forumReply) {
         return AjaxResult.success(forumReplyService.insert(forumReply));
     }
 
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult edit(@RequestBody ForumReply forumReply) {
+    public AjaxResult edit( ForumReply forumReply) {
         return AjaxResult.success(forumReplyService.update(forumReply));
     }
 
