@@ -360,16 +360,19 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function 
                 , '<i>{replyCount}</i>'
                 , '</span>'
                 , '</div>'
+                , '<div class="fly-list-badge">'
+                , '{top}'
                 , '{essence}'
+                , '</div>'
                 , '</li>'
             ].join('');
-            var essenceElem = [
-                '<div class="fly-list-badge">'
-                , '<span class="layui-badge layui-bg-red">精华</span>'
-                , '</div>'
-            ].join('');
+            var topElem = '<span class="layui-badge layui-bg-black">置顶</span>';
+            var essenceElem = '<span class="layui-badge layui-bg-red">精华</span>';
             var topPosts = '';
-            fly.json('/post/findAll', {'topicKey':topic, 'isTop':isTop, 'isEssence':isEssence, 'orderByColumn':order}, function (res) {
+            if (order == undefined || order == '') {
+                order = 'createTime'
+            }
+            fly.json('/post/findAll', {'topicKey':topic, 'isTop':isTop, 'isEssence':isEssence, 'orderByColumn':order, 'isAsc':'desc'}, function (res) {
                 if (res.code === 0) {
                     res.rows.forEach((item, index, array) => {
                         var curPostElem = postElem
@@ -385,6 +388,11 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function 
                             curPostElem = curPostElem.replaceAll('{userUrl}', ctx + 'user/' + item.authorId);
                         } else {
                             curPostElem = curPostElem.replaceAll('userUrl', '#');
+                        }
+                        if (item.isTop === 1) {
+                            curPostElem = curPostElem.replaceAll('{top}', topElem);
+                        } else {
+                            curPostElem = curPostElem.replaceAll('{top}', '');
                         }
                         if (item.isEssence === 1) {
                             curPostElem = curPostElem.replaceAll('{essence}', essenceElem);
