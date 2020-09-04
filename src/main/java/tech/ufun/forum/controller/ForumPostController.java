@@ -1,6 +1,7 @@
 package tech.ufun.forum.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tech.ufun.forum.domain.ForumPost;
 import tech.ufun.forum.service.ForumPostService;
@@ -13,13 +14,18 @@ import tech.ufun.framework.core.page.PageData;
  * @author 张雷
  * @since 2020-08-29 10:41:51
  */
-@RestController
+@Controller
 @RequestMapping("post")
 public class ForumPostController {
 
     /** 服务对象 */
     @Autowired
     private ForumPostService forumPostService;
+
+    @GetMapping("/add")
+    public String add() {
+        return "post/add";
+    }
 
     @PostMapping("/findAll")
     @ResponseBody
@@ -35,13 +41,13 @@ public class ForumPostController {
 
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult add(ForumPost forumPost) {
+    public AjaxResult addPost(ForumPost forumPost) {
         return AjaxResult.success(forumPostService.insert(forumPost));
     }
 
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult edit( ForumPost forumPost) {
+    public AjaxResult editPost( ForumPost forumPost) {
         return AjaxResult.success(forumPostService.update(forumPost));
     }
 
