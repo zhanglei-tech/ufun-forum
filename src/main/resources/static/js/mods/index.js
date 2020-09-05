@@ -351,13 +351,13 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function 
                 , '<cite>{author}</cite>'
                 , '</a>'
                 , '<span>{createTime}</span>'
-                , '<span class="fly-list-read" title="浏览">'
-                , '<i class="layui-icon layui-icon-read"></i>'
-                , '<i>{viewCount}</i>'
-                , '</span>'
                 , '<span class="fly-list-nums">'
                 , '<i class="iconfont icon-pinglun1" title="回复"></i>'
                 , '<i>{replyCount}</i>'
+                , '</span>'
+                , '<span class="fly-list-read" title="浏览">'
+                , '<i class="layui-icon layui-icon-read"></i>'
+                , '<i>{viewCount}</i>'
                 , '</span>'
                 , '</div>'
                 , '<div class="fly-list-badge">'
@@ -652,7 +652,10 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function 
                 if (res.action) {
                     location.href = res.action;
                 } else {
-                    fly.form[action || button.attr('key')](data.field, data.form);
+                    // fly.form[action || button.attr('key')](data.field, data.form);
+                    if (button.data('jump')) {
+                        location.href = button.data('jump');
+                    }
                 }
             };
             if (res.code === 0) {

@@ -1,5 +1,6 @@
 package tech.ufun.forum.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.ufun.forum.domain.ForumPost;
@@ -8,6 +9,7 @@ import tech.ufun.forum.service.ForumPostService;
 import tech.ufun.framework.core.page.PageData;
 import tech.ufun.framework.core.page.PageSupport;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,6 +56,7 @@ public class ForumPostServiceImpl implements ForumPostService {
      */
     @Override
     public int insert(ForumPost forumPost) {
+        forumPost.setPostId(IdUtil.simpleUUID());
         return this.forumPostMapper.insert(forumPost);
     }
 

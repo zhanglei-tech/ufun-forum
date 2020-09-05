@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tech.ufun.forum.mapper.ForumPostMapper">
 
-    <resultMap type="tech.ufun.forum.domain.ForumPost" id="ForumPostMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
+    <resultMap type="ForumPost" id="ForumPostMap">
+        <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="postId" column="post_id" jdbcType="VARCHAR"/>
         <result property="topicId" column="topic_id" jdbcType="VARCHAR"/>
         <result property="topic" column="topic" jdbcType="VARCHAR"/>
@@ -62,9 +62,38 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert">
-        insert into forum_post(post_id, topic_id, topic, topic_key, author, author_avatar, author_id, subject, content, create_time, is_top, is_essence, view_count, reply_count)
-        values (#{postId}, #{topicId}, #{topic}, #{topicKey}, #{author}, #{authorAvatar}, #{authorId}, #{subject}, #{content}, #{createTime}, #{isTop}, #{isEssence}, #{viewCount}, #{replyCount})
+    <insert id="insert" parameterType="ForumPost" useGeneratedKeys="true" keyProperty="id">
+        insert into forum_post(
+        <if test="postId != null and postId != ''">post_id,</if>
+        <if test="topicId != null and topicId != ''">topic_id,</if>
+        <if test="topic != null and topic != ''">topic,</if>
+        <if test="topicKey != null and topicKey != ''">topic_key,</if>
+        <if test="author != null and author != ''">author,</if>
+        <if test="authorAvatar != null and authorAvatar != ''">author_avatar,</if>
+        <if test="authorId != null and authorId != ''">author_id,</if>
+        <if test="subject != null and subject != ''">subject,</if>
+        <if test="content != null and content != ''">content,</if>
+        <if test="isTop != null">is_top,</if>
+        <if test="isEssence != null">is_essence,</if>
+        <if test="viewCount != null">view_count,</if>
+        <if test="replyCount != null">reply_count,</if>
+        create_time
+        )values(
+        <if test="postId != null and postId != ''">#{postId},</if>
+        <if test="topicId != null and topicId != ''">#{topicId},</if>
+        <if test="topic != null and topic != ''">#{topic},</if>
+        <if test="topicKey != null and topicKey != ''">#{topicKey},</if>
+        <if test="author != null and author != ''">#{author},</if>
+        <if test="authorAvatar != null and authorAvatar != ''">#{authorAvatar},</if>
+        <if test="authorId != null and authorId != ''">#{authorId},</if>
+        <if test="subject != null and subject != ''">#{subject},</if>
+        <if test="content != null and content != ''">#{content},</if>
+        <if test="isTop != null">#{isTop},</if>
+        <if test="isEssence != null">#{isEssence},</if>
+        <if test="viewCount != null">#{viewCount},</if>
+        <if test="replyCount != null">#{replyCount},</if>
+        sysdate()
+        )
     </insert>
 
     <!--通过主键修改数据-->

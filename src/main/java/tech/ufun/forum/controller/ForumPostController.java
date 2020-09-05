@@ -2,11 +2,16 @@ package tech.ufun.forum.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import tech.ufun.forum.domain.ForumPost;
+import tech.ufun.forum.domain.ForumTopic;
 import tech.ufun.forum.service.ForumPostService;
+import tech.ufun.forum.service.ForumTopicService;
 import tech.ufun.framework.core.domain.AjaxResult;
 import tech.ufun.framework.core.page.PageData;
+
+import java.util.List;
 
 /**
  * 主题(ForumPost)表控制层
@@ -22,8 +27,14 @@ public class ForumPostController {
     @Autowired
     private ForumPostService forumPostService;
 
+    @Autowired
+    private ForumTopicService forumTopicService;
+
     @GetMapping("/add")
-    public String add() {
+    public String add(ModelMap modelMap) {
+        List<ForumTopic> topics = forumTopicService.findAll();
+        modelMap.put("topics", topics);
+
         return "post/add";
     }
 
