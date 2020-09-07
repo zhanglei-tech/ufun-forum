@@ -38,6 +38,14 @@ public class ForumPostController {
         return "post/add";
     }
 
+    @GetMapping("/detail/{postId}")
+    public String detail(@PathVariable String postId, ModelMap modelMap) {
+        ForumPost post = forumPostService.findById(postId);
+        modelMap.put("post", post);
+
+        return "post/detail";
+    }
+
     @PostMapping("/findAll")
     @ResponseBody
     public PageData findAll(ForumPost forumPost) {

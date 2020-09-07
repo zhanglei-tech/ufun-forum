@@ -246,9 +246,9 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .fly-list-info a[link]:hover{color: #5FB878;}
 .fly-list-info .icon-renzheng{position: relative; top: 1px; margin-right: 3px;}
 .fly-list-info .fly-badge-vip{position: relative; margin-left: 2px;}
-.fly-list-read{float: right}
+.fly-list-read{float: right; cursor: default}
 .fly-list-read i{position: relative; padding: 0 2px;}
-.fly-list-nums{float: right}
+.fly-list-nums{float: right; cursor: default}
 .fly-list-nums i{position: relative; padding: 0 2px;}
 
 .fly-list-badge{position: absolute; right: 15px; top: 15px; font-size: 0;}
