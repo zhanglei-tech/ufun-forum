@@ -351,7 +351,7 @@ body .layui-edit-face  .layui-layer-content{padding:0; background-color:#fff; co
 
 /* 发帖 */
 .layui-form-item.layui-col-space15{margin-bottom: 7.5px;}
-
+.fly-imagecode {position: relative; margin-top: -12px; cursor: pointer;}
 
 /* 求解管理 */
 .jie-admin{cursor: pointer;}
